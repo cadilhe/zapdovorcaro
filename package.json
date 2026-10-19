@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "python3 scripts/split_data.py && node scripts/export.mjs && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/run-python.mjs scripts/split_data.py && node scripts/export.mjs && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "split-data": "python3 scripts/split_data.py",
+    "split-data": "node scripts/run-python.mjs scripts/split_data.py",
     "export": "node scripts/export.mjs",
     "prerender": "node scripts/prerender.mjs",
     "test": "vitest run",
