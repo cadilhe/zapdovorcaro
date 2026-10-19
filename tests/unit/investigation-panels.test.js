@@ -88,4 +88,27 @@ describe('Investigation Panels', () => {
     linkTab.click();
     expect(panel.querySelectorAll('.media-link-item').length).toBe(1);
   });
+
+  it('renders NavRail and handles setActive properly', async () => {
+    const { renderNavRail } = await import('../../src/components/NavRail.js');
+    const container = document.createElement('div');
+    const onCalls = vi.fn();
+    const onPayments = vi.fn();
+    const onFlights = vi.fn();
+
+    const rail = renderNavRail(container, { onCalls, onPayments, onFlights });
+    expect(rail.className).toBe('nav-rail');
+
+    const paymentBtn = rail.querySelector('.nav-rail-btn[data-id="payments"]');
+    expect(paymentBtn).not.toBeNull();
+    paymentBtn.click();
+    expect(onPayments).toHaveBeenCalled();
+
+    rail.setActive('payments');
+    expect(paymentBtn.classList.contains('active')).toBe(true);
+
+    rail.setActive('chats');
+    expect(paymentBtn.classList.contains('active')).toBe(false);
+  });
 });
+
