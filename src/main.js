@@ -22,6 +22,9 @@ import {
 } from './lib/screenshot.js';
 import { showImagePreview } from './components/ImagePreview.js';
 import { renderCallsPanel } from './components/CallsPanel.js';
+import { renderPaymentsPanel } from './components/PaymentsPanel.js';
+import { renderFlightsView } from './components/FlightsView.js';
+import { renderMediaPanel } from './components/MediaPanel.js';
 import { exportUrl, EXPORT_ALL_URL, downloadFile } from './lib/export.js';
 import { copyText } from './lib/utils.js';
 
@@ -465,11 +468,15 @@ async function init() {
 
   const navRail = renderNavRail(container, {
     onCalls: () => router.navigate('calls'),
+    onPayments: () => router.navigate('pagamentos'),
+    onMedia: () => router.navigate('midia'),
+    onFlights: () => router.navigate('voos'),
     avatarSrc: '/assets/avatar-dv.jpg',
     onSettings: openSettings,
     onChat: () => {
-      // From the calls screen, this is the way back to the list.
-      if (router.getCurrentRoute().route === 'calls') { router.navigate('home'); return; }
+      // From specialized screens, this is the way back to the list.
+      const current = router.getCurrentRoute().route;
+      if (current !== 'home' && current !== 'chat') { router.navigate('home'); return; }
       closeProfile();
       closeSettings();
     },
@@ -534,6 +541,78 @@ async function init() {
     });
     sidebar.showCalls?.(panel);
     navRail.setActive?.('calls');
+  });
+
+  // Payments screen
+  let paymentsPromise = null;
+  router.on('pagamentos', async () => {
+    showEmptyState();
+    paymentsPromise ??= fetch('/data/payments.json').then(r => r.json()).then(d => d.payments);
+    let payments = [];
+    try { payments = await paymentsPromise; } catch { paymentsPromise = null; }
+    const panel = renderPaymentsPanel({
+      paymentsData: payments,
+      onSelect: (item) => {
+        showToast(`${item.destinatario}: ${item.valor}`);
+      }
+    });
+    sidebar.showPayments?.(panel);
+    navRail.setActive?.('payments');
+  });
+
+  // Media gallery screen
+  let mediaPromise = null;
+  router.on('midia', async () => {
+    showEmptyState();
+    mediaPromise ??= fetch('/data/media.json').then(r => r.json());
+    let mediaData = {};
+    try { mediaData = await mediaPromise; } catch { mediaPromise = null; }
+    const panel = renderMediaPanel({
+      mediaData,
+      onImageClick: (item) => {
+        showImagePreview({
+          container: app,
+          src: item.src,
+          caption: item.caption || item.title,
+          title: item.title,
+          onClose: () => {}
+        });
+      }
+    });
+    sidebar.showMedia?.(panel);
+    navRail.setActive?.('media');
+  });
+
+  // Flights & passengers view
+  let flightsPromise = null;
+  router.on('voos', async () => {
+    closeAll();
+    setActiveConversation(sidebar, null);
+    container.classList.add('chat-open');
+    while (mainArea.firstChild) mainArea.removeChild(mainArea.firstChild);
+    sidebar.showChats?.();
+    navRail.setActive?.('flights');
+
+    flightsPromise ??= fetch('/data/flights.json').then(r => r.json());
+    let flightsData = {};
+    try { flightsData = await flightsPromise; } catch { flightsPromise = null; }
+
+    const view = renderFlightsView({
+      flightsData,
+      onBack: () => router.navigate('home'),
+      onPassengerClick: (name) => {
+        const conv = store.getConversations().find(c => {
+          const pName = c.participants?.find(p => p !== 'DV') || c.contact;
+          return pName && pName.toLowerCase().includes(name.toLowerCase());
+        });
+        if (conv) {
+          router.navigate('chat', conv.id);
+        } else {
+          showToast(`Conversa com ${name} não disponível no acervo.`);
+        }
+      }
+    });
+    mainArea.appendChild(view);
   });
   router.on('chat', async (id, messageId) => {
     if (messageId) {

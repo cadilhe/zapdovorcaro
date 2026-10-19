@@ -1,0 +1,56 @@
+{
+  "title": "Voos e passageiros",
+  "subtitle": "Registros reunidos no material fornecido.",
+  "section": "Voos com Vorcaro indicado a bordo",
+  "section_subtitle": "Trechos em que o material identifica Daniel Vorcaro como passageiro.",
+  "flights": [
+    {
+      "id": 1,
+      "date": "16 e 18 mai 2024",
+      "aircraft": "Jato particular · prefixo não publicado",
+      "route": "Nova York · semana do Person of the Year / Lide",
+      "passengers": ["Daniel Vorcaro", "Ciro Nogueira"],
+      "notes": "Imagens da PF. O Park Hyatt também foi reservado para Fábio Faria; a Piauí o incluiu na lista de um trecho a Nova York. Ele afirma que pagou."
+    },
+    {
+      "id": 2,
+      "date": "20 ago 2024",
+      "aircraft": "Gulfstream GV-SP · PR-PSE (Viking)",
+      "route": "Flórida → Croácia",
+      "passengers": ["Daniel Vorcaro", "Martha Graeff"],
+      "notes": "Diálogos apontam a matrícula PR-PSE."
+    },
+    {
+      "id": 3,
+      "date": "2–3 fev 2025",
+      "aircraft": "Gulfstream GV-SP · PR-PSE (Viking)",
+      "route": "Brasília → Trancoso · retorno em 3 fev: Trancoso → Guarulhos",
+      "passengers": ["Daniel Vorcaro"],
+      "notes": "Registro de hangar; demais passageiros não publicados."
+    },
+    {
+      "id": 4,
+      "date": "28 ago 2025",
+      "aircraft": "Phenom 300 · PR-NGM (Aviation Management Services / Voar)",
+      "route": "Brasília, 15h36 → Congonhas, 16h57",
+      "passengers": ["Daniel Vorcaro", "Ciro Nogueira", "Isnaldo Bulhões", "Rodrigo Gambale", "Fábio Faria", "Bruno Bianco"],
+      "notes": "Trecho destacado no relatório da Polícia Federal."
+    },
+    {
+      "id": 5,
+      "date": "29 ago 2025",
+      "aircraft": "Jato citado nos diálogos com Martha",
+      "route": "Gênova → Orlando · no dia seguinte: Orlando → São Paulo",
+      "passengers": ["Daniel Vorcaro", "Martha Graeff"],
+      "notes": "Diálogos e reservas extraídos das mensagens com Martha Graeff."
+    },
+    {
+      "id": 6,
+      "date": "1 mai 2025",
+      "aircraft": "Falcon 7X · PS-FST",
+      "route": "Guarulhos → Flórida · pouso às 8h05",
+      "passengers": ["Daniel Vorcaro"],
+      "notes": "Registro de decolagem e manifesto de voo internacional."
+    }
+  ]
+}

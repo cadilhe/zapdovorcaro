@@ -1,0 +1,83 @@
+{
+  "title": "Mídia",
+  "subtitle": "Mídias de todas as conversas",
+  "tabs": ["Mídias", "Documentos", "Links"],
+  "items": [
+    {
+      "id": 1,
+      "type": "image",
+      "title": "Daniel Vorcaro e Martha Graeff na praia",
+      "src": "/assets/og-image.jpg",
+      "date": "Sem data",
+      "caption": "Daniel Vorcaro e Martha Graeff em viagem"
+    },
+    {
+      "id": 2,
+      "type": "image",
+      "title": "Pedido de casamento",
+      "src": "/assets/og-image.png",
+      "date": "Sem data",
+      "caption": "Pedido de casamento entre Daniel Vorcaro e Martha Graeff"
+    },
+    {
+      "id": 3,
+      "type": "image",
+      "title": "Jato particular na pista",
+      "src": "/assets/og-image.jpg",
+      "date": "Sem data",
+      "caption": "Jato particular utilizado em viagens para Nova York"
+    },
+    {
+      "id": 4,
+      "type": "image",
+      "title": "Casamento e celebração",
+      "src": "/assets/og-image.png",
+      "date": "Sem data",
+      "caption": "Registros de eventos sociais do casal"
+    },
+    {
+      "id": 5,
+      "type": "image",
+      "title": "Mansão e piscina",
+      "src": "/assets/og-image.jpg",
+      "date": "Sem data",
+      "caption": "Imóvel e piscina citados nos relatórios"
+    },
+    {
+      "id": 6,
+      "type": "image",
+      "title": "Apreensão da PF no hangar",
+      "src": "/assets/og-image.png",
+      "date": "Sem data",
+      "caption": "Aeronave inspecionada pela Polícia Federal"
+    }
+  ],
+  "documents": [
+    {
+      "id": 101,
+      "title": "IPJ-A 3298613/2026 - Relatório Final da PF.pdf",
+      "size": "14.2 MB",
+      "date": "Fev 2026"
+    },
+    {
+      "id": 102,
+      "title": "Laudo Pericial de Extração Telemática.pdf",
+      "size": "8.7 MB",
+      "date": "Jan 2026"
+    }
+  ],
+  "links": [
+    {
+      "id": 201,
+      "title": "Matéria Piauí: O banqueiro e o ministro",
+      "url": "https://piaui.folha.uol.com.br",
+      "date": "2026"
+    },
+    {
+      "id": 202,
+      "title": "Brazil Journal: Daniel Vorcaro e o Banco Master",
+      "url": "https://braziljournal.com",
+      "date": "2026"
+    }
+  ]
+}

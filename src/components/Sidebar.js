@@ -235,17 +235,30 @@ export function renderSidebar(container, { conversations, onSelect, onProfile, o
   bottomNav.querySelector('[data-tab="calls"]').addEventListener('click', () => onCalls?.());
 
   /**
-   * Swap the list for the calls screen and back. The header, search and
-   * filter tabs belong to the chat list; the calls panel brings its own.
+   * Swap the conversation list for specialized panels (calls, payments, media) and back.
    */
-  el.showCalls = (panel) => {
+  el.showPanel = (panel, panelClass) => {
     el.querySelector('.calls-panel')?.remove();
-    el.insertBefore(panel, bottomNav);
-    el.classList.add('sidebar--calls');
+    el.querySelector('.payments-panel')?.remove();
+    el.querySelector('.media-panel')?.remove();
+    el.classList.remove('sidebar--calls', 'sidebar--payments', 'sidebar--media');
+    if (panel) {
+      el.insertBefore(panel, bottomNav);
+      if (panelClass) el.classList.add(panelClass);
+    }
+  };
+  el.showPayments = (panel) => {
+    el.showPanel(panel, 'sidebar--payments');
+  };
+  el.showMedia = (panel) => {
+    el.showPanel(panel, 'sidebar--media');
+  };
+  el.showCalls = (panel) => {
+    el.showPanel(panel, 'sidebar--calls');
     for (const tab of bottomNav.querySelectorAll('.sidebar-bottom-tab')) tab.classList.toggle('active', tab.dataset.tab === 'calls');
   };
   el.showChats = () => {
-    el.classList.remove('sidebar--calls');
+    el.showPanel(null);
     for (const tab of bottomNav.querySelectorAll('.sidebar-bottom-tab')) tab.classList.toggle('active', tab.dataset.tab === 'chats');
   };
 

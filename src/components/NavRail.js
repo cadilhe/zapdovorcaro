@@ -17,8 +17,20 @@ const ICON_SETTINGS = `<svg viewBox="0 0 24 24" width="24" height="24" fill="cur
  * @param {object} [options]
  * @param {string} [options.avatarSrc] - user avatar image URL
  * @returns {HTMLElement}
+const ICON_CARD = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`;
+const ICON_MEDIA = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+const ICON_FLIGHTS = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>`;
+const ICON_AI = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`;
+const ICON_AUDIO = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
+
+/**
+ * Render the navigation rail.
+ * @param {HTMLElement} container - the .app-container element
+ * @param {object} [options]
+ * @param {string} [options.avatarSrc] - user avatar image URL
+ * @returns {HTMLElement}
  */
-export function renderNavRail(container, { avatarSrc, onSettings, onChat, onCalls } = {}) {
+export function renderNavRail(container, { avatarSrc, onSettings, onChat, onCalls, onPayments, onMedia, onFlights } = {}) {
   const rail = document.createElement('nav');
   rail.className = 'nav-rail';
   rail.setAttribute('aria-label', 'Navegação');
@@ -28,22 +40,29 @@ export function renderNavRail(container, { avatarSrc, onSettings, onChat, onCall
   topSection.className = 'nav-rail-top';
 
   const navItems = [
-    { icon: ICON_CHAT, label: 'Conversas', active: true, enabled: true },
-    { icon: ICON_STATUS, label: 'Status', active: false, enabled: false },
-    { icon: ICON_CHANNELS, label: 'Comunidades', active: false, enabled: false },
-    { icon: ICON_CALLS, label: 'Chamadas', active: false, enabled: true, calls: true },
+    { id: 'chats', icon: ICON_CHAT, label: 'Conversas', active: true, enabled: true, action: onChat },
+    { id: 'status', icon: ICON_STATUS, label: 'Status', active: false, enabled: false },
+    { id: 'channels', icon: ICON_CHANNELS, label: 'Comunidades', active: false, enabled: false },
+    { id: 'calls', icon: ICON_CALLS, label: 'Chamadas', active: false, enabled: true, action: onCalls },
+    { id: 'payments', icon: ICON_CARD, label: 'Pagamentos', active: false, enabled: true, action: onPayments },
+    { id: 'media', icon: ICON_MEDIA, label: 'Mídia', active: false, enabled: true, action: onMedia },
+    { id: 'flights', icon: ICON_FLIGHTS, label: 'Voos e passageiros', active: false, enabled: true, action: onFlights },
+    { id: 'ai', icon: ICON_AI, label: 'Oráculo IA', active: false, enabled: false },
+    { id: 'audio', icon: ICON_AUDIO, label: 'Áudios', active: false, enabled: false },
   ];
 
   for (const item of navItems) {
     const btn = document.createElement('button');
     btn.className = 'nav-rail-btn';
+    btn.dataset.id = item.id;
     if (item.active) btn.classList.add('active');
     if (!item.enabled) btn.classList.add('disabled');
     btn.setAttribute('aria-label', item.label);
     btn.setAttribute('title', item.label);
     btn.innerHTML = item.icon; // Static SVG
-    if (item.active && onChat) btn.addEventListener('click', onChat);
-    if (item.calls && onCalls) btn.addEventListener('click', onCalls);
+    if (item.enabled && item.action) {
+      btn.addEventListener('click', item.action);
+    }
     topSection.appendChild(btn);
   }
 
@@ -75,12 +94,10 @@ export function renderNavRail(container, { avatarSrc, onSettings, onChat, onCall
   rail.appendChild(bottomSection);
 
   // Insert as first child of container
-  /** Move the highlight between the chat list and the calls screen. */
+  /** Move the highlight between screens. */
   rail.setActive = (which) => {
-    for (const btn of rail.querySelectorAll('button[aria-label]')) {
-      const label = btn.getAttribute('aria-label');
-      if (label === 'Conversas') btn.classList.toggle('active', which === 'chats');
-      if (label === 'Chamadas') btn.classList.toggle('active', which === 'calls');
+    for (const btn of rail.querySelectorAll('.nav-rail-btn[data-id]')) {
+      btn.classList.toggle('active', btn.dataset.id === which);
     }
   };
 

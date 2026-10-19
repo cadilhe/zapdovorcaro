@@ -1,0 +1,70 @@
+{
+  "title": "Pagamentos",
+  "subtitle": "Registros financeiros identificados no material.",
+  "payments": [
+    {
+      "id": 1,
+      "origem": "Banco Master",
+      "destinatario": "Barci de Moraes Sociedade de Advogados",
+      "data": "08/02/2024",
+      "valor": "R$ 3.422.268,14",
+      "destaque": true
+    },
+    {
+      "id": 2,
+      "origem": "Banco Master",
+      "destinatario": "Barci de Moraes Sociedade de Advogados",
+      "data": "Jul/2025",
+      "valor": "R$ 3.422.268,14",
+      "destaque": true
+    },
+    {
+      "id": 3,
+      "origem": "Banco Master",
+      "destinatario": "Barci de Moraes Sociedade de Advogados",
+      "data": "01/10/2025",
+      "valor": "R$ 3.422.268,14",
+      "destaque": true
+    },
+    {
+      "id": 4,
+      "origem": "Banco Master",
+      "destinatario": "Barci de Moraes Sociedade de Advogados",
+      "data": "Fev/2024 - Out/2025",
+      "valor": "4 comprovantes = R$ 13,6 milhões",
+      "destaque": true
+    },
+    {
+      "id": 5,
+      "origem": "Banco Master (via fundos)",
+      "destinatario": "Empresas ligadas a familiares/sócios de Vorcaro",
+      "data": "2017–2025",
+      "valor": "~R$ 1,8 bilhão",
+      "destaque": false
+    },
+    {
+      "id": 6,
+      "origem": "Banco Master / fundos",
+      "destinatario": "Henrique Moura Vorcaro (pai)",
+      "data": "Identificado em 2026",
+      "valor": "Saldo > R$ 2,2 bilhões",
+      "destaque": false
+    },
+    {
+      "id": 7,
+      "origem": "Empresas/grupo Vorcaro (Multipar etc.)",
+      "destinatario": "Henrique Moura Vorcaro",
+      "data": "2020–2025",
+      "valor": "~R$ 14,7 milhões",
+      "destaque": false
+    },
+    {
+      "id": 8,
+      "origem": "Empresas/grupo Vorcaro (Multipar etc.)",
+      "destinatario": "Natália Vorcaro Zettel (irmã)",
+      "data": "2020–2025",
+      "valor": "~R$ 6,4 milhões",
+      "destaque": false
+    }
+  ]
+}

@@ -4,7 +4,10 @@ dist/
 *.local
 
 # Generated data (rebuild with npm run split-data / npm run export)
-public/data/
+public/data/*
+!public/data/payments.json
+!public/data/flights.json
+!public/data/media.json
 public/export/
 
 # Reference files (personal images, design refs)
